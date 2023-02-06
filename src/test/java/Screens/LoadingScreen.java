@@ -1,5 +1,6 @@
 package Screens;
 
+import BaseAndMain.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoadingScreen {
+public class LoadingScreen extends BasePage {
     private WebDriver driver;
     private final String URL = "https://buyme.co.il/";
     private WebDriverWait webDriverWait;
@@ -22,10 +23,10 @@ public class LoadingScreen {
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(2));
             driver.get(URL);
         }catch (Exception e){
-            By middleDot = By.className("bounce265");
+            By middleDot = By.className("bounce32");
             webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(middleDot));
-            System.out.println("height of middle dot is: "+ driver.findElement(middleDot).getSize().height);
-            System.out.println("width of middle dot is: "+ driver.findElement(middleDot).getSize().width);
+            System.out.println("height of middle dot is: "+ getWebElement(middleDot).getSize().height);
+            System.out.println("width of middle dot is: "+ getWebElement(middleDot).getSize().width);
         }
     }
 }
