@@ -1,61 +1,30 @@
 package Screens;
 
 import BaseAndMain.*;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.locators.RelativeLocator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 
 public class HomeScreen extends BasePage {
     WebDriver driver;
     private WebDriverWait webDriverWait;
-
     private final String password = "Aa123456";
     private final String email = "adarm13@gmail.com";
-    private Select select;
 
     public HomeScreen(WebDriver driver){
         this.driver = driver;
-        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        setReportInfo("set HomeScreen driver Pass");
-    }
-    public void scrollDownChooseGift_Bonus(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("javascript:window.scrollBy(867,3515)");
-        try {
-            TakesScreenshot ts = (TakesScreenshot) driver;
-            File source = ts.getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(source,new File("ScrollDown.png"));
-            setReportPassed("Scroll down bonus Passed");
-        } catch (IOException e) {
-            setReportFailed("Scroll down bonus Failed");
-        }
     }
 
-
-    public void redTextAssertion_Bonus(){
-        String redText = "כל המתנות מחכות לך! אבל קודם צריך מייל וסיסמה";
-        clickElement(By.className("notSigned"));
-        By loginToBuyMe = By.id("ember1852");
-        waitForElementToBeClickable(loginToBuyMe);
-        clickElement(loginToBuyMe);
-        Assert.assertEquals(driver.findElement(By.className("parsley-required")).getText(),redText);
-    }
-
+    // Open Register window at the Home Page
     public void openRegistration(){
         clickElement(By.xpath("//*[@id=\"ember1005\"]/div/ul[1]/li[3]/a/span"));
         By clickRegistration = By.className("text-link");
         waitForElementToBeClickable(clickRegistration);
-//        webDriverWait.until(ExpectedConditions.elementToBeClickable(clickRegistration));
         clickElement(clickRegistration);
     }
 
+    // Enter details, name,Email,Password
     public void setDetails(){
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         try{
@@ -68,15 +37,18 @@ public class HomeScreen extends BasePage {
         sendKeysToElement(By.id("ember1883"),password);
     }
 
+    // check box to confirm the rules before registeration after filling the details
     public void confirmationCheck(){
         clickElement(By.className("fill"));
     }
 
+    // click on register button
     public void registerationButton(){
         clickElement(By.cssSelector("button[type=submit]"));
     }
 
 
+    // choose price from the dropdown
     public void priceDropDown(){
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         clickElement(By.className("selected-name"));
@@ -84,16 +56,19 @@ public class HomeScreen extends BasePage {
         clickElement(By.id("ember1075"));
     }
 
+    // choose area from the dropdown
     public void areaDropDown(){
         clickElement(By.cssSelector("span[alt=אזור]"));
         clickElement(By.id("ember1111"));
     }
 
+    // choose category from the dropdown
     public void categoryDropDown(){
         clickElement(By.cssSelector("span[alt=קטגוריה]"));
         clickElement(By.id("ember1174"));
     }
 
+    // click search after filling filters
     public void searchButton(){
         clickElement(By.id("ember1199"));
     }

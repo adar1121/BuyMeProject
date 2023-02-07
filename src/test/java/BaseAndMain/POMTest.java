@@ -1,29 +1,20 @@
 package BaseAndMain;
 
-import Screens.HomeScreen;
-import Screens.LoadingScreen;
-import Screens.PickBusiness;
-import Screens.SenderAndReceiverScreen;
+import Screens.*;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class POMTest {
-
-    private final String RealURL = "https://buyme.co.il/";
-    private final String URL = "https://buyme.co.il/search?budget=1&category=16&region=13";
-    static ExtentReports extent;
-    static ExtentSparkReporter htmlReporter;
-    static ExtentTest test;
-
+    private static ExtentReports extent;
+    private static ExtentSparkReporter htmlReporter;
+    public static ExtentTest test;
+    private Extras extras;
     private static WebDriver driver;
-    HomeScreen homeScreen;
 
     @BeforeClass
     public void openWebsite(){
@@ -33,6 +24,7 @@ public class POMTest {
         test = extent.createTest("BuyMeProject", "Project Reports");
         driver = DriverSingleton.getDriverInstance();
         driver.get(BasePage.getDataFromXML("URL"));
+        extras = new Extras(driver);
     }
 
     @Test
@@ -48,7 +40,6 @@ public class POMTest {
         homeScreen.searchButton();
     }
 
-
     @Test
     public void Test02_PickBusiness(){
         PickBusiness pickBusiness = new PickBusiness(driver);
@@ -61,7 +52,6 @@ public class POMTest {
     @Test
     public void Test03_SenderAndReceiverScreen(){
         SenderAndReceiverScreen senderAndReceiverScreen = new SenderAndReceiverScreen(driver);
-        senderAndReceiverScreen.getColorWhoSend_Bonus();
         senderAndReceiverScreen.pressSomeoneElse();
         senderAndReceiverScreen.enterReceiveName();
         senderAndReceiverScreen.selectEvent();
@@ -74,26 +64,26 @@ public class POMTest {
     }
 
     @Test
-    public void Test04_RedTextAssertion_Bonus(){
-        homeScreen.redTextAssertion_Bonus();
+    public void Test04_LoadingScreen_Bonus(){
+        extras.gettingLoadingDotsSize();
     }
 
     @Test
-    public void Test05_ScrollDown_Bonus(){
-        homeScreen.scrollDownChooseGift_Bonus();
+    public void Test05_RedTextAssertion_Bonus(){
+        extras.redTextAssertion_Bonus();
     }
 
     @Test
-    public void Test05_LoadingScreen_Bonus(){
-        LoadingScreen loadingScreen = new LoadingScreen(driver);
-        loadingScreen.gettingLoadingDotsSize();
+    public void Test06_ScrollDown_Bonus(){
+        extras.scrollDownChooseGift_Bonus();
+    }
+    @Test
+    public void Test07_PrintColorOfWhoSend_Bonus(){
+        extras.getColorWhoSend_Bonus();
     }
 
     @AfterClass
     public void after(){
     extent.flush();
     }
-
-
-
 }

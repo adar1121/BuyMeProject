@@ -2,20 +2,13 @@ package BaseAndMain;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import Screens.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.w3c.dom.Document;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.time.Duration;
 
 public class DriverSingleton {
-    static WebDriver driver;
-    static WebDriverWait webDriverWait;
-
+    private static WebDriver driver;
+    private static WebDriverWait webDriverWait;
     public static WebDriver getDriverInstance() {
         String driverType = BasePage.getDataFromXML("browserType");
         if(driver == null && driverType.equalsIgnoreCase("chrome")) {
